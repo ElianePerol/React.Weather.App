@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button, Form, Container, Row, Col } from 'react-bootstrap';
 
-export default function Semaine() {
+export default function FiveDays() {
     const [city, setCity] = useState("Paris");
     const [coords, setCoords] = useState({ lat: null, lon: null });
     const [weatherData, setWeatherData] = useState(null);
@@ -76,41 +76,45 @@ export default function Semaine() {
     if (error) return <p>Erreur : {error}</p>;
 
     return (
-        <Container>
-          <h4 className="text-center mb-4 ">Météo à {capitalizeFirstLetter(city)}</h4>
+        <Container className="d-flex flex-column align-items-center p-0">
+            <h4 className="text-center mb-4 p-0">Météo à {capitalizeFirstLetter(city)}</h4>
 
-          <Form onSubmit={handleSubmit}>
-            <Row className="mb-3">
-              <Col xs={8}>
-                <Form.Control
-                  type="text"
-                  value={cityInput}
-                  onChange={handleCityChange}
-                  placeholder="Entrez une ville"
-                />
-              </Col>
-              <Col xs={4}>
-              < Button type="submit" variant="secondary">
-                    Rechercher
-                </Button>
-              </Col>
-            </Row>
-          </Form>
+            <Form onSubmit={handleSubmit} className="w-100">
+                <Row className="mb-3 justify-content-center">
+                    <Col xs={8} sm={4}>
+                        <Form.Control
+                            type="text"
+                            value={cityInput}
+                            onChange={handleCityChange}
+                            placeholder="Entrez une ville" />
+                    </Col>
+                    <Col xs={7} sm={3}>
+                        <Button type="submit" variant="secondary" className="w-100">
+                            Rechercher
+                        </Button>
+                    </Col>
+                </Row>
+            </Form>
 
             {forecastData && (
                 <>
-                    <h5 className="mt-4">Prévisions sur 5 jours (3h par intervalle)</h5>
-                    <Row>
+                    <Row className="mt-4 mb-4 justify-content-center w-100">
                         {forecastData.list.slice(0, 5).map((entry, index) => (
-                            <Col key={index} xs={2}>
-                                <p>{new Date(entry.dt * 1000).toLocaleDateString()}</p>
-                                <p>{entry.main.temp} °C</p>
-                                <p>{entry.weather[0].description}</p>
+                            <Col key={index} xs={12} sm={6} md={4} lg={2} className="d-flex flex-column p-1">
+                                <div className="card shadow-sm p-0" style={{ height: '300px'}}>
+                                    <div className="card-body text-center">
+                                        <h5>{new Date(entry.dt * 1000).toLocaleDateString()}</h5>
+                                        <strong>Température :</strong><p>{entry.main.temp} °C</p>
+                                        <strong>Conditions :</strong><p>{entry.weather[0].description}</p>
+                                        <strong>Vent :</strong><p>{entry.wind.speed} m/s</p>
+                                        <strong>Humidité :</strong><p>{entry.main.humidity} %</p>
+                                    </div>
+                                </div>
                             </Col>
                         ))}
                     </Row>
                 </>
             )}
-    </Container>
+        </Container>
       );
 }

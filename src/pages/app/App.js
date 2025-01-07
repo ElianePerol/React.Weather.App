@@ -1,16 +1,9 @@
 import './App.css';
 import { Container, Card, Button} from 'react-bootstrap';
-import Heure from '../../components/heure';
-import Semaine from '../../components/semaine';
+import Live from '../../components/live';
+import FiveDays from '../../components/5-days';
 import Compteur from '../../components/compteur';
-
 import { useState } from 'react';
-
-const dataH = {
-  temp : "29°C",
-  wind : "20km/h",
-  humidity : "87%"
-}
 
 function App() {
 
@@ -21,10 +14,10 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <Container className="p-4">
-        <Card className="col-6 m-4 shadow-sm mx-auto">
-          <Card.Body>
+    <div className="App p-0">
+      <Container className="p-0">
+        <Card className="col-10 m-4 shadow-sm mx-auto">
+          <Card.Body >
 
             <div className="text-center">
               <h2>
@@ -32,12 +25,12 @@ function App() {
               </h2>
 
               <Button onClick={changeAffichage} variant="secondary" className="w-auto mb-3">
-                Afficher par {affichage ? "semaine" : "heures"}
+                Afficher {affichage ? "pour 5 jours" : "en temps réel"}
               </Button>
 
             </div>
 
-            {affichage ? <Heure /> : <Semaine/>}
+            {affichage ? <Live /> : <FiveDays/>}
 
 
           </Card.Body>

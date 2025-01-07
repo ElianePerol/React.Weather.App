@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button, Form, Container, Row, Col } from 'react-bootstrap';
 
-export default function Semaine() {
+export default function Live() {
     const [city, setCity] = useState("Paris");
     const [coords, setCoords] = useState({ lat: null, lon: null });
     const [weatherData, setWeatherData] = useState(null);
@@ -77,12 +77,12 @@ export default function Semaine() {
     if (error) return <p>Erreur : {error}</p>;
 
     return (
-        <Container>
-          <h4 className="text-center mb-4 ">Météo à {capitalizeFirstLetter(city)}</h4>
+        <Container className="d-flex flex-column align-items-center p-0">
+          <h4 className="text-center mb-4 p-0">Météo à {capitalizeFirstLetter(city)}</h4>
 
-          <Form onSubmit={handleSubmit}>
-            <Row className="mb-3">
-              <Col xs={8}>
+          <Form onSubmit={handleSubmit} className="w-100">
+            <Row className="mb-3 justify-content-center">
+              <Col xs={8} sm={4}>
                 <Form.Control
                   type="text"
                   value={cityInput}
@@ -90,8 +90,8 @@ export default function Semaine() {
                   placeholder="Entrez une ville"
                 />
               </Col>
-              <Col xs={4}>
-              < Button type="submit" variant="secondary">
+              <Col xs={7} sm={3}>
+              < Button type="submit" variant="secondary" className="w-100">
                     Rechercher
                 </Button>
               </Col>
@@ -99,13 +99,21 @@ export default function Semaine() {
           </Form>
 
              {weatherData && (
-                <div className="mt-4">
-                    <p><strong>Date et heure :</strong> {new Date().toLocaleString()}</p>
-                    <p><strong>Température actuelle :</strong> {weatherData.main.temp} °C</p>
-                    <p><strong>Conditions :</strong> {weatherData.weather[0].description}</p>
-                    <p><strong>Humidité :</strong> {weatherData.main.humidity}%</p>
-                    <p><strong>Vent :</strong> {weatherData.wind.speed} m/s</p>
-                </div>
+                <>
+                    <Row className="mt-4 bm-4 justify-content-center w-100">
+                        <Col xs={12} sm={6} md={4} lg={2} className="d-flex flex-column p-1">
+                            <div className="card shadow-sm p-0" style={{ height: '330px'}}>
+                                <div className="card-body text-center">
+                                    <h5>{new Date().toLocaleString()}</h5>
+                                    <strong>Température :</strong><p> {weatherData.main.temp} °C</p>
+                                    <strong>Conditions :</strong><p> {weatherData.weather[0].description}</p>
+                                    <strong>Vent :</strong><p> {weatherData.wind.speed} m/s</p>
+                                    <strong>Humidité :</strong><p> {weatherData.main.humidity}%</p>
+                                </div>
+                            </div>
+                        </Col>                       
+                    </Row>
+                </>
             )}
             
 
