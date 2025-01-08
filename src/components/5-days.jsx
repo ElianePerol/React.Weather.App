@@ -127,11 +127,13 @@ export default function FiveDays() {
 
                                                 return (
                                                     <Col key={idx} xs={12} sm={6} md={4} lg={3} className="pb-2">
-                                                        <div className='p-2'>
+                                                        <div className='text-center p-2'>
                                                             <strong>{formattedTime}</strong> <br />
-                                                            <strong>Température:</strong> {entry.main.temp} °C <br />
-                                                            <strong>Conditions:</strong> {entry.weather[0].description} <br />
-                                                            <strong>Vent:</strong> {entry.wind.speed} m/s <br />
+                                                            <img src={`http://openweathermap.org/img/wn/${entry.weather[0].icon}@2x.png`} 
+                                                                alt={entry.weather[0].description} 
+                                                                style={{ width: "50px", height: "50px" }} /><br />
+                                                            <strong> {Math.round(entry.main.temp * 2) / 2} °C </strong><br />
+                                                            <strong>Vent:</strong> {Math.round((entry.wind.speed * 3.6).toFixed(1))} km/h <br />
                                                             <strong>Humidité:</strong> {entry.main.humidity} % 
                                                         </div>
                                                     </Col>

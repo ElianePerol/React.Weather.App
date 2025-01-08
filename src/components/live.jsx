@@ -111,15 +111,15 @@ export default function Live() {
                                 </h5>
                                 </Card.Header>
 
-                                <Card.Body>
+                                <Card.Body className="text-center">
                                     <Row className="justify-content-center">
                                         <Col xs={12} sm={12} md={12} lg={12}>
-                                            <div className='p-0'>
-                                                <strong>Température :</strong><p> {weatherData.main.temp} °C</p>
-                                                <strong>Conditions :</strong><p> {weatherData.weather[0].description}</p>
-                                                <strong>Vent :</strong><p> {weatherData.wind.speed} m/s</p>
+                                                <img src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`}
+                                                    alt={weatherData.weather[0].description}
+                                                    style={{ width: "50px", height: "50px" }}/>
+                                                <strong><p> {Math.round(weatherData.main.temp * 2) / 2} °C</p></strong>
+                                                <strong>Vent :</strong><p> {Math.round((weatherData.wind.speed * 3.6).toFixed(1))} km/h</p>
                                                 <strong>Humidité :</strong><p> {weatherData.main.humidity}%</p>
-                                            </div>
                                         </Col>
                                     </Row>
                                 </Card.Body>
