@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
-import { Button, Form, Container, Row, Col } from 'react-bootstrap';
+import { Card, Button, Form, Container, Row, Col } from 'react-bootstrap';
 
 export default function FiveDays() {
     const [city, setCity] = useState("Paris");
     const [coords, setCoords] = useState({ lat: null, lon: null });
-    const [weatherData, setWeatherData] = useState(null);
     const [forecastData, setForecastData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [cityInput, setCityInput] = useState(""); // Track input field changes
+    const [cityInput, setCityInput] = useState("");
+
     const capitalizeFirstLetter = (str) => {
         return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
     }
@@ -19,16 +19,16 @@ export default function FiveDays() {
     useEffect(() => {
         const fetchCoordinates = async () => {
             try {
-            const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${apiKey}`;
-            const response = await fetch(geoUrl);
-            const data = await response.json();
+                const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${apiKey}`;
+                const response = await fetch(geoUrl);
+                const data = await response.json();
 
-            if (data.length > 0) {
-                setCoords({ lat: data[0].lat, lon: data[0].lon });
-                setError(null);
-            } else {
-                throw new Error("City not found");
-            }
+                if (data.length > 0) {
+                    setCoords({ lat: data[0].lat, lon: data[0].lon });
+                    setError(null);
+                } else {
+                    throw new Error("City not found");
+                }
             } catch (err) {
                 setError(err.message);
                 setCoords({ lat: null, lon: null });
@@ -50,8 +50,6 @@ export default function FiveDays() {
                 const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
                 const forecastResponse = await fetch(forecastUrl);
                 const forecastData = await forecastResponse.json();
-
-                setWeatherData(weatherData);
                 setForecastData(forecastData);
                 setLoading(false);
             } catch (err) {
@@ -75,6 +73,18 @@ export default function FiveDays() {
     if (loading) return <p>Chargement...</p>;
     if (error) return <p>Erreur : {error}</p>;
 
+    const groupByDay = () => {
+        const days = {};
+        forecastData.list.forEach((entry) => {
+            const date = new Date(entry.dt * 1000).toLocaleDateString();
+            if (!days[date]) days[date] = [];
+            days[date].push(entry);
+        });
+        return days;
+    };
+
+    const forecastByDay = groupByDay();
+
     return (
         <Container className="d-flex flex-column align-items-center p-0">
             <h4 className="text-center mb-4 p-0">Météo à {capitalizeFirstLetter(city)}</h4>
@@ -96,25 +106,45 @@ export default function FiveDays() {
                 </Row>
             </Form>
 
-            {forecastData && (
-                <>
-                    <Row className="mt-4 mb-4 justify-content-center w-100">
-                        {forecastData.list.slice(0, 5).map((entry, index) => (
-                            <Col key={index} xs={12} sm={6} md={4} lg={2} className="d-flex flex-column p-1">
-                                <div className="card shadow-sm p-0" style={{ height: '300px'}}>
-                                    <div className="card-body text-center">
-                                        <h5>{new Date(entry.dt * 1000).toLocaleDateString()}</h5>
-                                        <strong>Température :</strong><p>{entry.main.temp} °C</p>
-                                        <strong>Conditions :</strong><p>{entry.weather[0].description}</p>
-                                        <strong>Vent :</strong><p>{entry.wind.speed} m/s</p>
-                                        <strong>Humidité :</strong><p>{entry.main.humidity} %</p>
-                                    </div>
-                                </div>
+            <>
+                {forecastData && (
+                    <Row className="w-100 justify-content-center">
+                        {Object.entries(forecastByDay).map(([date, entries], index) => (
+                            <Col key={index} xs={12} sm={12} md={12} lg={12} className="mb-4">
+                                <Card>
+                                    <Card.Header className="text-center border-0">
+                                        <h4>{date}</h4>
+                                    </Card.Header>
+                                    
+                                    <Card.Body>
+                                        <Row className="justify-content-center">
+                                            
+                                            {entries.map((entry, idx) => {
+                                                const date = new Date(entry.dt * 1000);
+                                                const hours = date.getHours().toString().padStart(2, '0');
+                                                const minutes = date.getMinutes().toString().padStart(2, '0');
+                                                const formattedTime = `${hours}h${minutes}`;
+
+                                                return (
+                                                    <Col key={idx} xs={12} sm={6} md={4} lg={3} className="pb-2">
+                                                        <div className='p-2'>
+                                                            <strong>{formattedTime}</strong> <br />
+                                                            <strong>Température:</strong> {entry.main.temp} °C <br />
+                                                            <strong>Conditions:</strong> {entry.weather[0].description} <br />
+                                                            <strong>Vent:</strong> {entry.wind.speed} m/s <br />
+                                                            <strong>Humidité:</strong> {entry.main.humidity} % 
+                                                        </div>
+                                                    </Col>
+                                                );
+                                            })}
+                                        </Row>
+                                    </Card.Body>
+                                </Card>
                             </Col>
                         ))}
                     </Row>
-                </>
-            )}
+                )}
+            </>
         </Container>
       );
 }

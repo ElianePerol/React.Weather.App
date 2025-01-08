@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Button, Form, Container, Row, Col } from 'react-bootstrap';
+import { Card, Button, Form, Container, Row, Col } from 'react-bootstrap';
 
 export default function Live() {
     const [city, setCity] = useState("Paris");
@@ -98,23 +98,36 @@ export default function Live() {
             </Row>
           </Form>
 
-             {weatherData && (
-                <>
-                    <Row className="mt-4 bm-4 justify-content-center w-100">
-                        <Col xs={12} sm={6} md={4} lg={2} className="d-flex flex-column p-1">
-                            <div className="card shadow-sm p-0" style={{ height: '330px'}}>
-                                <div className="card-body text-center">
-                                    <h5>{new Date().toLocaleString()}</h5>
-                                    <strong>Température :</strong><p> {weatherData.main.temp} °C</p>
-                                    <strong>Conditions :</strong><p> {weatherData.weather[0].description}</p>
-                                    <strong>Vent :</strong><p> {weatherData.wind.speed} m/s</p>
-                                    <strong>Humidité :</strong><p> {weatherData.main.humidity}%</p>
-                                </div>
-                            </div>
+          <>
+                {weatherData && (
+                    <Row className="w-100 justify-content-center">
+                        <Col xs={12} sm={6} md={4} lg={2} className="mb-4">
+                            <Card>
+                                <Card.Header className="text-center border-0">
+                                <h5>{new Date().toLocaleDateString()}</h5>
+                                <h5>
+                                    {new Date().getHours().toString().padStart(2, '0')}h
+                                    {new Date().getMinutes().toString().padStart(2, '0')}
+                                </h5>
+                                </Card.Header>
+
+                                <Card.Body>
+                                    <Row className="justify-content-center">
+                                        <Col xs={12} sm={12} md={12} lg={12}>
+                                            <div className='p-0'>
+                                                <strong>Température :</strong><p> {weatherData.main.temp} °C</p>
+                                                <strong>Conditions :</strong><p> {weatherData.weather[0].description}</p>
+                                                <strong>Vent :</strong><p> {weatherData.wind.speed} m/s</p>
+                                                <strong>Humidité :</strong><p> {weatherData.main.humidity}%</p>
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                </Card.Body>
+                            </Card>
                         </Col>                       
                     </Row>
-                </>
-            )}
+                )}
+            </>
             
 
     </Container>
