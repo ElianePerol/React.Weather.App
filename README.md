@@ -1,10 +1,18 @@
-# React
+# Application Météo - React
 
-Sujet : Application météo
+## Contexte
+Ce projet, réalisé dans le cadre de mon **BTS SIO SLAM** via la plateforme **Microlead**, consiste en la création d'une **application météo** en React. 
+L'application permet à l'utilisateur de saisir une ville, récupère la météo via l'API OpenWeatherMap et l'affiche dynamiquement. 
+L'application permet également de basculer entre l'affichage de la météo en temps réel et les prévisions sur cinq jours.
+
+## Fonctionnalités
+- **Saisie de la ville** : L'utilisateur entre le nom d'une ville.
+- **Récupération des données météo** : Appel à l'API OpenWeatherMap pour récupérer les informations météorologiques.
+- **Affichage dynamique** : Affichage de la météo actuelle ou des prévisions sur 5 jours.
+- **Design minimaliste** : Bien que non obligatoire, un minimum de design a été ajouté pour améliorer l'expérience utilisateur.
 
 ## Prérequis
-
-Vous aurez besoin de vous créer une clé API pour vous servir de l'API d'OpenWeatherMap ! Par ici : https://openweathermap.org/
+Avant de pouvoir utiliser cette application, il est nécessaire de créer une clé API pour OpenWeatherMap via [OpenWeatherMap API](https://openweathermap.org/).
 
 ## Installation
 
@@ -17,14 +25,6 @@ Lancer l'application
 ```
 npm start
 ```
-
-## Projet
-
-Faire une application qui demande avec un input une ville. A partir du moment où ce formulaire est soumis, vous devez déclencher un appel API à openweather pour récupérer la météo et l'afficher.
-
-Ajouter un bouton pour basculer l'affichage en "jour" ou "semaine".
-
-Si possible, mettre un minimum de design même si non obligatoire.
 
 ## Déploiement sur Github Pages
 
