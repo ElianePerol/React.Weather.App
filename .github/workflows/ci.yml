@@ -15,6 +15,11 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
+            echo "Début du déploiement"
             cd ${{ secrets.PROJECT_PATH }}
-            sudo git pull
-            sudo -S npm run build
+            echo "Changement de répertoire vers ${{ secrets.PROJECT_PATH }}"
+            git pull
+            echo "Git pull terminé"
+            echo ${{ secrets.SUDO_PASSWORD }} | sudo -S npm run build
+            echo "Build terminé"
+            echo "Déploiement terminé"
