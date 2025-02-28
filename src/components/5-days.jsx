@@ -134,7 +134,7 @@ export default function FiveDays() {
                                                                 style={{ width: "50px", height: "50px" }} /><br />
                                                             <strong> {Math.round(entry.main.temp * 2) / 2} °C </strong><br />
                                                             <strong>Vent:</strong> {Math.round((entry.wind.speed * 3.6).toFixed(1))} km/h <br />
-                                                            <strong>Humidité WET:</strong> {entry.main.humidity} % 
+                                                            <strong>Humidité:</strong> {entry.main.humidity} % 
                                                         </div>
                                                     </Col>
                                                 );
