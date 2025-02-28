@@ -87,7 +87,7 @@ export default function FiveDays() {
 
     return (
         <Container className="d-flex flex-column align-items-center p-0">
-            <h4 className="text-center mb-4 p-0">Météo à {capitalizeFirstLetter(city)}</h4>
+            <h4 className="text-center mb-4 p-0">Météo BEEP BOOP à {capitalizeFirstLetter(city)}</h4>
 
             <Form onSubmit={handleSubmit} className="w-100">
                 <Row className="mb-3 justify-content-center">
