@@ -2,7 +2,7 @@
   "name": "weather",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://ElianePerol.github.io/React.Weather.App",
+  "homepage": "weatherapp.elianeperol.com",
   "dependencies": {
     "bootstrap": "^5.3.3",
     "cra-template": "1.2.0",
