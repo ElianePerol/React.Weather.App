@@ -17,4 +17,4 @@ jobs:
           script: |
             cd ${{ secrets.PROJECT_PATH }}
             sudo git pull
-            sudo npm run build
+            sudo -S npm run build
