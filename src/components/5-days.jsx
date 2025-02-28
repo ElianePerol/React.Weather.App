@@ -87,7 +87,7 @@ export default function FiveDays() {
 
     return (
         <Container className="d-flex flex-column align-items-center p-0">
-            <h4 className="text-center mb-4 p-0">Météo BEEP BOOP à {capitalizeFirstLetter(city)}</h4>
+            <h4 className="text-center mb-4 p-0">Météo à {capitalizeFirstLetter(city)}</h4>
 
             <Form onSubmit={handleSubmit} className="w-100">
                 <Row className="mb-3 justify-content-center">
@@ -134,7 +134,7 @@ export default function FiveDays() {
                                                                 style={{ width: "50px", height: "50px" }} /><br />
                                                             <strong> {Math.round(entry.main.temp * 2) / 2} °C </strong><br />
                                                             <strong>Vent:</strong> {Math.round((entry.wind.speed * 3.6).toFixed(1))} km/h <br />
-                                                            <strong>Humidité:</strong> {entry.main.humidity} % 
+                                                            <strong>Humidité WET:</strong> {entry.main.humidity} % 
                                                         </div>
                                                     </Col>
                                                 );
