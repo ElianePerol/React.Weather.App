@@ -16,11 +16,7 @@ jobs:
           port: ${{ secrets.SERVER_PORT }}
           key: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
           script: |
-            echo "Début du déploiement"
             cd ${{ secrets.PROJECT_PATH }}
-            echo "Changement de répertoire vers ${{ secrets.PROJECT_PATH }}"
             git pull
-            echo "Git pull terminé"
-            echo ${{ secrets.SUDO_PASSWORD }} | sudo -S npm run build
-            echo "Build terminé"
-            echo "Déploiement terminé"
+            sudo npm install
+            sudo npm run build
