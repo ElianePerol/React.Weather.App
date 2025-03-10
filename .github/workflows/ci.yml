@@ -20,3 +20,4 @@ jobs:
             git pull
             sudo npm install
             sudo npm run build
+            sudo systemctl restart nginx

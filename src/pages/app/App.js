@@ -21,7 +21,7 @@ function App() {
 
             <div className="text-center">
               <h2>
-                {affichage ? "Météo en temps réel" : "Prévisions sur 5 jours"}
+                {affichage ? "BEEP Météo en temps réel" : "BOOP Prévisions sur 5 jours"}
               </h2>
 
               <Button onClick={changeAffichage} variant="secondary" className="w-auto mb-3">
